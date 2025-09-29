@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
-import environ
+import environ # type: ignore
 
 from pathlib import Path
 
@@ -44,7 +44,7 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-
+    'apps.blog'
 ]
 
 THIRD_PARTY_APPS = [

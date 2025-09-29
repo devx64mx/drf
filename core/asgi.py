@@ -9,13 +9,13 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
 
 import os
 
-from django.core.asgi import get_asgi_application
+from django.core.asgi import get_asgi_application # type: ignore
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 django_asgi_application = get_asgi_application()
 
-from channels.routing import ProtocolTypeRouter
+from channels.routing import ProtocolTypeRouter # type: ignore
 
 application = ProtocolTypeRouter({
     "http": django_asgi_application
