@@ -10,6 +10,7 @@ def blog_thumbnail_directory(instance, filename):
 def category_thumbnail_directory(instance, filename):
     return "blog_categories/{0}/{1}".format(instance.name, filename)
 
+
 class Category(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -57,7 +58,7 @@ class Post(models.Model):
     postobjects = PostObjects() # custom Manager
 
     class Meta:
-        ordering = ("-published")
+        ordering = ("status","-created_at")
     
     def __str__(self):
         return self.title

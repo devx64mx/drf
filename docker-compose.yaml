@@ -1,4 +1,37 @@
+networks:
+  blog_django:
+
+volumes:
+  .dbdata:
+  .:
+
 services:
+  # Database
+  django_db:
+    image: postgres:14.4
+    container_name: postgresql
+    restart: always
+    environment:
+      #PGDATA: /var/lib/postgresql/data/db-files
+      POSTGRES_DB: django_db
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - .dbdata:/var/lib/postgresql
+    networks:
+      blog_django:
+
+  # Redis
+  django_redis:
+    image: redis
+    container_name: django_redis
+    ports:
+      - 6379:6379
+    networks:
+      blog_django:
+
   # Django app
   backend:
     container_name: django
@@ -10,24 +43,5 @@ services:
       - 8000:8000
     depends_on:
       - django_redis
-
-  # Redis
-  django_redis:
-    image: redis
-    container_name: django_redis
-    ports:
-      - 6379:6379
-
-  # Database
-  django_db:
-    image: postgres
-    container_name: postgresql
-    restart: always
-    environment:
-      POSTGRES_DB: django_db
-      POSTGRES_USER: django
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - 5432:5432
-    volumes:
-      - .dbdata:/var/lib/postgresql
+    networks:
+      blog_django:
