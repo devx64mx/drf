@@ -1,3 +1,17 @@
-from django.shortcuts import render
+from rest_framework.genercs import ListAPIView
+ 
+from .models import Post
+from .serializers import PostListSerializer
 
-# Create your views here.
+class PostListView(ListAPIView):
+
+    queryset = Post.postobjects.all()
+    serializer_class = PostListSerializer
+
+
+class PostDetailView(ListAPIView):
+
+    queryset = Post.postobjects.all()
+    serializer_class = PostListSerializer
+    lookup_field = 'slug'
+    
